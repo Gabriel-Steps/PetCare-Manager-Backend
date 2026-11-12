@@ -1,5 +1,6 @@
 package com.project.petcaremanager.models;
 
+import com.project.petcaremanager.dtos.addressDtos.request.UpdateAddressDto;
 import jakarta.persistence.*;
 
 @Entity
@@ -101,5 +102,14 @@ public class Address {
 
     public void setUf(String uf) {
         this.uf = uf;
+    }
+
+    public void update(UpdateAddressDto dto){
+        this.street = dto.street();
+        this.number = dto.number();;
+        this.supplement = dto.supplement();
+        this.neighborhood = dto.neighborhood();
+        this.city = dto.city();
+        this.uf = dto.uf();
     }
 }
