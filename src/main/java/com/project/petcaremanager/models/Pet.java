@@ -1,9 +1,11 @@
 package com.project.petcaremanager.models;
 
+import com.project.petcaremanager.dtos.petDtos.request.UpdatePetDto;
 import com.project.petcaremanager.models.enums.PetSize;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "pets")
@@ -33,10 +35,10 @@ public class Pet {
     private boolean neutered;
 
     @Column(nullable = true)
-    private LocalDateTime dateOfBirth;
+    private LocalDate dateOfBirth;
 
     @Column(nullable = true)
-    private float weight;
+    private BigDecimal weight;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -66,18 +68,30 @@ public class Pet {
             Client client,
             String name,
             String species,
+            String race,
             String sex,
             boolean neutered,
-            LocalDateTime dateOfBirth,
-            PetSize size) {
+            LocalDate dateOfBirth,
+            BigDecimal weight,
+            PetSize size,
+            String color,
+            String allergy,
+            String temperament,
+            Long numberMicroship) {
         this.id = id;
         this.client = client;
         this.name = name;
         this.species = species;
+        this.race = race;
         this.sex = sex;
         this.neutered = neutered;
         this.dateOfBirth = dateOfBirth;
+        this.weight = weight;
         this.size = size;
+        this.color = color;
+        this.allergy = allergy;
+        this.temperament = temperament;
+        this.numberMicroship = numberMicroship;
         this.isActive = true;
     }
 
@@ -137,19 +151,19 @@ public class Pet {
         this.neutered = neutered;
     }
 
-    public LocalDateTime getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDateTime dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public float getWeight() {
+    public BigDecimal getWeight() {
         return weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(BigDecimal weight) {
         this.weight = weight;
     }
 
@@ -199,5 +213,20 @@ public class Pet {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public void update(UpdatePetDto dto, PetSize petSize){
+        this.name = dto.name();
+        this.species = dto.species();
+        this.race = dto.race();
+        this.sex = dto.sex();
+        this.neutered = dto.neutered();
+        this.dateOfBirth = dto.dateOfBirth();
+        this.weight = dto.weight();
+        this.size = petSize;
+        this.color = dto.color();
+        this.allergy = dto.allergy();
+        this.temperament = dto.temperament();
+        this.numberMicroship = dto.numberMicroship();
     }
 }

@@ -1,5 +1,6 @@
 package com.project.petcaremanager.models;
 
+import com.project.petcaremanager.dtos.clientDtos.request.UpdateClientDto;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -24,7 +25,7 @@ public class Client {
     @Column(nullable = true)
     private String secondaryPhone;
 
-    @Column(nullable = true)
+    @Column(unique = true, nullable = true)
     private String email;
 
     @OneToOne
@@ -50,17 +51,22 @@ public class Client {
             String name,
             String cpf,
             String phone,
+            String secondaryPhone,
+            String email,
             Address address,
-            boolean contactViaWhatsApp) {
+            boolean contactViaWhatsApp,
+            String observation) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
         this.phone = phone;
+        this.secondaryPhone = secondaryPhone;
+        this.email = email;
         this.address = address;
         this.contactViaWhatsApp = contactViaWhatsApp;
+        this.observation = observation;
         this.isActive = true;
         this.createdAt = LocalDateTime.now();
-
     }
 
     public Long getId() {
@@ -149,5 +155,15 @@ public class Client {
 
     private void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public void updateClient(UpdateClientDto dto){
+        this.name = dto.name();
+        this.cpf = dto.cpf();
+        this.phone = dto.phone();
+        this.secondaryPhone = dto.secondaryPhone();
+        this.email = dto.email();
+        this.contactViaWhatsApp = dto.contactViaWhatsApp();
+        this.observation = dto.observation();
     }
 }

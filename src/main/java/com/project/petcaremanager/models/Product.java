@@ -1,5 +1,6 @@
 package com.project.petcaremanager.models;
 
+import com.project.petcaremanager.dtos.productDtos.request.UpdateProductDto;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -31,6 +32,9 @@ public class Product {
     @Column(nullable = false)
     private BigDecimal unitPrice;
 
+    @Column(nullable = false)
+    private String imageUrl;
+
     public Product() { }
 
     public Product(
@@ -40,7 +44,8 @@ public class Product {
             String barcode,
             String manufacturer,
             int stockQuantity,
-            BigDecimal unitPrice) {
+            BigDecimal unitPrice,
+            String imageUrl) {
         this.id = id;
         this.unit = unit;
         this.name = name;
@@ -48,6 +53,7 @@ public class Product {
         this.manufacturer = manufacturer;
         this.stockQuantity = stockQuantity;
         this.unitPrice = unitPrice;
+        this.imageUrl = imageUrl;
     }
 
     public Long getId() {
@@ -104,5 +110,30 @@ public class Product {
 
     public void setUnit(Unit unit) {
         this.unit = unit;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void update(UpdateProductDto dto){
+        this.name = dto.name();
+        this.barcode = dto.barCode();
+        this.manufacturer = dto.manufacturer();
+        this.stockQuantity = dto.stockQuantity();
+        this.unitPrice = dto.unitPrice();
+        this.imageUrl = dto.imageUrl();
+    }
+
+    public void depositar(int quantity){
+        this.stockQuantity += quantity;
+    }
+
+    public void retirar(int quantity){
+        this.stockQuantity -= quantity;
     }
 }
