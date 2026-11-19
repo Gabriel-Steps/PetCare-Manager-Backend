@@ -27,6 +27,8 @@ public class StockMovement {
     @Column(nullable = false)
     private LocalDateTime dayMovement;
 
+    public StockMovement() { }
+
     public StockMovement(
             Long id,
             Product product,

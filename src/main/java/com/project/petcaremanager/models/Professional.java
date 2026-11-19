@@ -1,5 +1,6 @@
 package com.project.petcaremanager.models;
 
+import com.project.petcaremanager.dtos.professionalDtos.request.UpdateProfessionalDto;
 import jakarta.persistence.*;
 
 @Entity
@@ -17,7 +18,7 @@ public class Professional {
     @Column(nullable = false)
     private String specialty;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String crmv;
 
     @Column(nullable = false)
@@ -25,8 +26,14 @@ public class Professional {
 
     public Professional() { }
 
-    public Professional(Long id, String specialty, String crmv, String phone){
+    public Professional(
+            Long id,
+            User user,
+            String specialty,
+            String crmv,
+            String phone){
         this.setId(id);
+        this.setUser(user);
         this.setSpecialty(specialty);
         this.setCrmv(crmv);
         this.setPhone(phone);
@@ -70,5 +77,11 @@ public class Professional {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public void update(UpdateProfessionalDto dto){
+        this.specialty = dto.specialty();
+        this.crmv = dto.crmv();
+        this.phone = dto.phone();
     }
 }
