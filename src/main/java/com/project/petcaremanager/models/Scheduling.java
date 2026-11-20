@@ -1,5 +1,7 @@
 package com.project.petcaremanager.models;
 
+import com.project.petcaremanager.dtos.schedulingDtos.models.ModelSchedulingEntitiesDto;
+import com.project.petcaremanager.dtos.schedulingDtos.request.UpdateSchedulingDto;
 import com.project.petcaremanager.models.enums.SchedulingStatus;
 import jakarta.persistence.*;
 
@@ -23,12 +25,12 @@ public class Scheduling {
     private Professional professional;
 
     @ManyToOne
-    @JoinColumn(name = "unit_id")
-    private Unit unit;
+    @JoinColumn(name = "receptionist_id")
+    private Professional receptionist;
 
     @ManyToOne
-    @JoinColumn(name = "reception_id")
-    private User reception;
+    @JoinColumn(name = "unit_id")
+    private Unit unit;
 
     @Column(nullable = false)
     private LocalDateTime startDateTime;
@@ -43,7 +45,7 @@ public class Scheduling {
     @Column(nullable = false)
     private BigDecimal finalPrice;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String observation;
 
     @Column(nullable = false)
@@ -58,24 +60,23 @@ public class Scheduling {
             Long id,
             Pet pet,
             Professional professional,
-            Unit unit, User reception,
+            Professional receptionist,
+            Unit unit,
             LocalDateTime startDateTime,
             LocalDateTime endDateTime,
-            SchedulingStatus status,
             BigDecimal finalPrice,
-            String observation,
-            LocalDateTime lastUpdate) {
+            String observation) {
         this.id = id;
         this.pet = pet;
         this.professional = professional;
+        this.receptionist = receptionist;
         this.unit = unit;
-        this.reception = reception;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
-        this.status = status;
+        this.status = SchedulingStatus.AGENDADO;
         this.finalPrice = finalPrice;
         this.observation = observation;
-        this.lastUpdate = lastUpdate;
+        this.lastUpdate = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -108,14 +109,6 @@ public class Scheduling {
 
     public void setUnit(Unit unit) {
         this.unit = unit;
-    }
-
-    public User getReception() {
-        return reception;
-    }
-
-    public void setReception(User reception) {
-        this.reception = reception;
     }
 
     public LocalDateTime getStartDateTime() {
@@ -172,5 +165,25 @@ public class Scheduling {
 
     public void setReasonCancellation(String reasonCancellation) {
         this.reasonCancellation = reasonCancellation;
+    }
+
+    public Professional getReceptionist() {
+        return receptionist;
+    }
+
+    public void setReceptionist(Professional receptionist) {
+        this.receptionist = receptionist;
+    }
+
+    public void update(UpdateSchedulingDto dto, ModelSchedulingEntitiesDto model){
+        this.pet = model.pet();
+        this.professional = model.professional();
+        this.receptionist = model.receptionist();
+        this.unit = model.unit();
+        this.startDateTime = dto.startDateTime();
+        this.endDateTime = dto.endDateTime();
+        this.observation = dto.observation();
+        this.finalPrice = dto.finalPrice();
+        this.lastUpdate = LocalDateTime.now();
     }
 }

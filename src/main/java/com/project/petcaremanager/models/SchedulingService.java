@@ -16,17 +16,17 @@ public class SchedulingService {
 
     @ManyToOne
     @JoinColumn(name = "service_id")
-    private Service service;
+    private Services services;
 
     public SchedulingService() { }
 
     public SchedulingService(
             Long id,
             Scheduling scheduling,
-            Service service) {
+            Services services) {
         this.id = id;
         this.scheduling = scheduling;
-        this.service = service;
+        this.services = services;
     }
 
     public Long getId() {
@@ -45,11 +45,11 @@ public class SchedulingService {
         this.scheduling = scheduling;
     }
 
-    public Service getService() {
-        return service;
+    public Services getService() {
+        return services;
     }
 
-    public void setService(Service service) {
-        this.service = service;
+    public void setService(Services services) {
+        this.services = services;
     }
 }

@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "services")
-public class Service {
+public class Services {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,9 +35,9 @@ public class Service {
     @Column(nullable = false)
     private boolean isActive;
 
-    public Service() { }
+    public Services() { }
 
-    public Service(
+    public Services(
             Long id,
             String name,
             ServiceCategory category,
