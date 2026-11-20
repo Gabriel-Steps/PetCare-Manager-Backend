@@ -1,5 +1,6 @@
 package com.project.petcaremanager.models;
 
+import com.project.petcaremanager.dtos.serviceDtos.request.UpdateServiceDto;
 import com.project.petcaremanager.models.enums.ServiceCategory;
 import jakarta.persistence.*;
 
@@ -41,12 +42,14 @@ public class Services {
             Long id,
             String name,
             ServiceCategory category,
+            String description,
             int duration,
             BigDecimal basePrice,
             boolean requiresVeterinarian) {
         this.id = id;
         this.name = name;
         this.category = category;
+        this.description = description;
         this.duration = duration;
         this.basePrice = basePrice;
         this.requiresVeterinarian = requiresVeterinarian;
@@ -115,5 +118,14 @@ public class Services {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public void update(UpdateServiceDto dto, ServiceCategory serviceCategory){
+        this.name = dto.name();
+        this.description = dto.description();
+        this.category = serviceCategory;
+        this.duration = dto.duration();
+        this.basePrice = dto.basePrice();
+        this.requiresVeterinarian = dto.requiresVeterinarian();
     }
 }
