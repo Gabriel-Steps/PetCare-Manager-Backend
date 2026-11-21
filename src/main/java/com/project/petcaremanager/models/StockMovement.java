@@ -3,6 +3,7 @@ package com.project.petcaremanager.models;
 import com.project.petcaremanager.models.enums.MovementType;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -33,13 +34,12 @@ public class StockMovement {
             Long id,
             Product product,
             MovementType type,
-            int quantity,
-            LocalDateTime dayMovement) {
+            int quantity) {
         this.id = id;
         this.product = product;
         this.type = type;
         this.quantity = quantity;
-        this.dayMovement = dayMovement;
+        this.dayMovement = LocalDateTime.now();
     }
 
     public Long getId() {
