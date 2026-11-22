@@ -1,5 +1,6 @@
 package com.project.petcaremanager.models;
 
+import com.project.petcaremanager.dtos.unitDtos.request.UpdateUnitDto;
 import jakarta.persistence.*;
 
 @Entity
@@ -29,26 +30,40 @@ public class Unit {
     @JoinColumn(name = "address_id")
     private Address address;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Column(nullable = false)
+    private boolean isActive;
+
     public Unit() { }
 
     public Unit(
             Long id,
             String name,
             String cnpj,
+            String companyName,
             String phone,
-            Address address) {
+            String email,
+            Address address,
+            User user) {
         this.id = id;
         this.name = name;
         this.cnpj = cnpj;
+        this.companyName = companyName;
         this.phone = phone;
+        this.email = email;
         this.address = address;
+        this.user = user;
+        this.isActive = true;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
 
@@ -98,5 +113,25 @@ public class Unit {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void update(UpdateUnitDto dto){
+        this.name = dto.name();
+        this.cnpj = dto.cnpj();
+        this.companyName = dto.companyName();
+        this.phone = dto.phone();
+        this.email = dto.email();
+    }
+
+    public void changeStatus(){
+        this.isActive = !this.isActive;
     }
 }
