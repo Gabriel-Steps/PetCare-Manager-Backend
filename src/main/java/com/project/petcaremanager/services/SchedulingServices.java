@@ -182,7 +182,7 @@ public class SchedulingServices {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Nenhum profissional foi encontrado com esse identificador " + professionalId
                 ));
-        Professional receptionist = professionalRepository.findById(professionalId)
+        Professional receptionist = professionalRepository.findById(receptionistId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Nenhum recepcionista foi encontrado com esse identificador " + receptionistId
                 ));

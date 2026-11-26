@@ -33,6 +33,10 @@ public class Services {
     @Column(nullable = false)
     private boolean requiresVeterinarian;
 
+    @ManyToOne
+    @JoinColumn(name = "unit_id")
+    private Unit unit;
+
     @Column(nullable = false)
     private boolean isActive;
 
@@ -45,7 +49,8 @@ public class Services {
             String description,
             int duration,
             BigDecimal basePrice,
-            boolean requiresVeterinarian) {
+            boolean requiresVeterinarian,
+            Unit unit) {
         this.id = id;
         this.name = name;
         this.category = category;
@@ -54,6 +59,7 @@ public class Services {
         this.basePrice = basePrice;
         this.requiresVeterinarian = requiresVeterinarian;
         this.isActive = true;
+        this.unit = unit;
     }
 
     public Long getId() {
@@ -118,6 +124,14 @@ public class Services {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Unit unit) {
+        this.unit = unit;
     }
 
     public void update(UpdateServiceDto dto, ServiceCategory serviceCategory){

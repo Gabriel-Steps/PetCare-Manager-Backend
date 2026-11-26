@@ -2,12 +2,12 @@ package com.project.petcaremanager.dtos.unitOperationDtos.response;
 
 import com.project.petcaremanager.models.enums.DayOfWeek;
 
-import java.util.TimeZone;
+import java.time.LocalTime;
 
 public record ResponseUnitOperationDto(
         Long unitId,
         DayOfWeek dayOfWeek,
-        TimeZone startTime,
-        TimeZone endTime
+        LocalTime startTime,
+        LocalTime endTime
 ) {
 }

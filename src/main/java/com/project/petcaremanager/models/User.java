@@ -13,29 +13,38 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 
+    @Column(nullable = false)
     private boolean isActive;
+
+    @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "unit_id")
-    private Unit unit;
 
     public User(){ }
 
-    public User(Long id, String name, String email, String password, Role role, Unit unit){
+    public User(
+            Long id,
+            String name,
+            String email,
+            String password,
+            Role role){
         this.id = id;
-        this.setName(name);
-        this.setEmail(email);
-        this.setPassword(password);
-        this.setUnit(unit);
+        this.name = name;
+        this.email = email;
+        this.password = password;
         this.role = role;
         this.isActive = true;
         this.createdAt = LocalDateTime.now();
@@ -74,11 +83,27 @@ public class User {
         return role;
     }
 
-    public Unit getUnit() {
-        return unit;
+    private void setId(Long id) {
+        this.id = id;
     }
 
-    public void setUnit(Unit unit) {
-        this.unit = unit;
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

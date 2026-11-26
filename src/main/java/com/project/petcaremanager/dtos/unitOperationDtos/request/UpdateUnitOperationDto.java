@@ -1,19 +1,19 @@
 package com.project.petcaremanager.dtos.unitOperationDtos.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
-import java.util.TimeZone;
+import java.time.LocalTime;
 
 public record UpdateUnitOperationDto(
-        @NotBlank(message = "Infome o horário do dia")
-        Long unitOperation,
-        @NotBlank(message = "Informe a unidade desse horário")
+        @NotNull(message = "Informe a unidade desse horário") @Positive
         Long unitId,
         @NotBlank(message = "Informe o dia da semana que a unidade irá atuar")
         String dayOfWeek,
-        @NotBlank(message = "Informe o horário de inicio da unidade")
-        TimeZone startTime,
-        @NotBlank(message = "Informe o horário de fim fechamento da unidade")
-        TimeZone endTime
+        @NotNull(message = "Informe o horário de inicio da unidade")
+        LocalTime startTime,
+        @NotNull(message = "Informe o horário de fim fechamento da unidade")
+        LocalTime endTime
 ) {
 }

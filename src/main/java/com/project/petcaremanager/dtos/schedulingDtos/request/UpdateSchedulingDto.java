@@ -1,24 +1,25 @@
 package com.project.petcaremanager.dtos.schedulingDtos.request;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record UpdateSchedulingDto(
-        @NotBlank(message = "Informe o pet que terá no agendamento")
+        @NotNull(message = "Informe o pet que terá no agendamento") @Positive
         Long petId,
-        @NotBlank(message = "Informe o profissional que realizará o serviço")
+        @NotNull(message = "Informe o profissional que realizará o serviço") @Positive
         Long professionalId,
-        @NotBlank(message = "Informe o(a) recepcionista que marcou o agendamento")
+        @NotNull(message = "Informe o(a) recepcionista que marcou o agendamento") @Positive
         Long receptionistId,
-        @NotBlank(message = "Informe a unidade que será reliazado o serviço")
+        @NotNull(message = "Informe a unidade que será reliazado o serviço") @Positive
         Long unitId,
-        @NotBlank(message = "Informe o horário de inicio da consulta")
+        @NotNull(message = "Informe o horário de inicio da consulta")
         LocalDateTime startDateTime,
-        @NotBlank(message = "Informe o horário previsto para finalizar a consulta")
+        @NotNull(message = "Informe o horário previsto para finalizar a consulta")
         LocalDateTime endDateTime,
-        @NotBlank(message = "Informe o preço final do agendamento")
+        @NotNull(message = "Informe o preço final do agendamento")@Positive
         BigDecimal finalPrice,
         String observation
 ) {

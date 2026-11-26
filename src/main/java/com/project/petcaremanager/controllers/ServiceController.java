@@ -2,6 +2,7 @@ package com.project.petcaremanager.controllers;
 
 import com.project.petcaremanager.dtos.ResponseApiDto;
 import com.project.petcaremanager.dtos.serviceDtos.request.CreateServiceDto;
+import com.project.petcaremanager.dtos.serviceDtos.request.UpdateServiceDto;
 import com.project.petcaremanager.dtos.serviceDtos.response.ResponseServiceDto;
 import com.project.petcaremanager.services.ServiceServices;
 import jakarta.validation.Valid;
@@ -39,10 +40,20 @@ public class ServiceController {
         return ResponseEntity.ok(new ResponseApiDto<>(true, null, serviceServices.findAll(pageable)));
     }
 
+    @GetMapping("/unit/{id}")
+    public ResponseEntity<ResponseApiDto<Page<ResponseServiceDto>>> findAll(
+            @PathVariable Long id,
+            Pageable pageable
+    ){
+        return ResponseEntity.ok(new ResponseApiDto<>(true, null, serviceServices.findAllByUnitId(id, pageable)));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<ResponseApiDto<Void>> update(
-            @PathVariable Long id
-    ){
+            @PathVariable Long id,
+            @RequestBody @Valid UpdateServiceDto dto
+            ){
+        serviceServices.update(id, dto);
         return ResponseEntity.ok(new ResponseApiDto<>(true, "Serviço atualizado com sucesso", null));
     }
 
@@ -50,6 +61,7 @@ public class ServiceController {
     public ResponseEntity<ResponseApiDto<Void>> delete(
             @PathVariable Long id
     ){
+        serviceServices.delete(id);
         return ResponseEntity.ok(new ResponseApiDto<>(true, "Serviço removido com sucesso!", null));
     }
 }

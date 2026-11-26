@@ -1,6 +1,7 @@
 package com.project.petcaremanager.dtos.clientDtos.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record UpdateClientDto(
         @NotBlank(message = "O campo nome é obrigatório")
@@ -11,7 +12,7 @@ public record UpdateClientDto(
         String phone,
         String secondaryPhone,
         String email,
-        @NotBlank(message = "É obrigatório saber se o usuário aceita contato via Whats")
+        @NotNull
         boolean contactViaWhatsApp,
         String observation
 ) {

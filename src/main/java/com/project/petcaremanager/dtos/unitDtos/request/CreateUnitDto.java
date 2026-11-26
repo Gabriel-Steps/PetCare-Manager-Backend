@@ -1,6 +1,8 @@
 package com.project.petcaremanager.dtos.unitDtos.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import javax.sound.midi.MetaMessage;
 
@@ -13,9 +15,9 @@ public record CreateUnitDto(
         @NotBlank(message = "informe o telefone da sua unidade")
         String phone,
         String email,
-        @NotBlank(message = "Informe o endereço da sua unidade")
+        @NotNull(message = "Informe o endereço da sua unidade") @Positive
         Long addressId,
-        @NotBlank(message = "Informe o usuário que criou a unidade")
+        @NotNull(message = "Informe o usuário que criou a unidade") @Positive
         Long userId
 ) {
 }

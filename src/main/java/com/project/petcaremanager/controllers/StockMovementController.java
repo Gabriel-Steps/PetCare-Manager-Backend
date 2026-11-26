@@ -4,6 +4,7 @@ import com.project.petcaremanager.dtos.ResponseApiDto;
 import com.project.petcaremanager.dtos.stockMovementDtos.request.CreateStockMovementDto;
 import com.project.petcaremanager.dtos.stockMovementDtos.response.ResponseStockMovementDto;
 import com.project.petcaremanager.services.StockMovementService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class StockMovementController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseApiDto<Void> create(
-            CreateStockMovementDto dto
+            @RequestBody @Valid CreateStockMovementDto dto
     ){
 
         stockMovementService.create(dto);

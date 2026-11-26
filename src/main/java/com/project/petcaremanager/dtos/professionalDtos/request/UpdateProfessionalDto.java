@@ -1,9 +1,11 @@
 package com.project.petcaremanager.dtos.professionalDtos.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 public record UpdateProfessionalDto(
-        @NotBlank(message = "Informe o usuário ligado a esse professional")
+        @NotNull(message = "Informe o usuário ligado a esse professional") @Positive
         Long userId,
         @NotBlank(message = "Informe a especialidade desse profissional")
         String specialty,

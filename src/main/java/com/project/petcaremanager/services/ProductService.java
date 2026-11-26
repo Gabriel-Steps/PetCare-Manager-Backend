@@ -10,6 +10,7 @@ import com.project.petcaremanager.models.Unit;
 import com.project.petcaremanager.repositories.ProductRepository;
 import com.project.petcaremanager.repositories.UnitRepository;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -42,13 +43,13 @@ public class ProductService {
         productRepository.save(product);
     }
 
-    public Page<ResponseProductDto> findAllByUnitId(Long id){
+    public Page<ResponseProductDto> findAllByUnitId(Long id, Pageable pageable){
         if(!unitRepository.existsById(id))
             throw new ResourceNotFoundException(
                     "Nenhuma unidade encontrada com esse identificador " + id
             );
 
-        return productRepository.findAllByUnitId(id)
+        return productRepository.findAllByUnitId(id, pageable)
                 .map(product -> new ResponseProductDto(
                         product.getId(),
                         id,

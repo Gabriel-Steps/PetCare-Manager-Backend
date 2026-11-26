@@ -1,6 +1,8 @@
 package com.project.petcaremanager.dtos.serviceDtos.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
@@ -10,11 +12,11 @@ public record UpdateServiceDto(
         @NotBlank(message = "Informe a categoria do serviço")
         String category,
         String description,
-        @NotBlank(message = "Informe a duração do serviço")
+        @NotNull(message = "Informe a duração do serviço") @Positive
         int duration,
-        @NotBlank(message = "Informe o preço base do serviço")
+        @NotNull(message = "Informe o preço base do serviço") @Positive
         BigDecimal basePrice,
-        @NotBlank(message = "Informe se o serviço requer presença de um veterinário")
+        @NotNull(message = "Informe se o serviço requer presença de um veterinário")
         boolean requiresVeterinarian
 ) {
 }

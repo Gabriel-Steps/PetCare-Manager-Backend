@@ -1,12 +1,14 @@
 package com.project.petcaremanager.dtos.petDtos.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record CreatePetDto(
-        @NotBlank(message = "O identificador do usuário é obrigatório")
+        @NotNull(message = "Informe o dono do pet") @Positive
         Long clientId,
         @NotBlank(message = "O campo nome é obrigatório")
         String name,
@@ -15,7 +17,7 @@ public record CreatePetDto(
         String race,
         @NotBlank(message = "O campo sexo é obrigatório")
         String sex,
-        @NotBlank(message = "O campo adestrado é obrigatório")
+        @NotNull(message = "Informe se o pet é castrado")
         boolean neutered,
         LocalDate dateOfBirth,
         BigDecimal weight,

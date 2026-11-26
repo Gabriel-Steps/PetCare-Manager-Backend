@@ -1,11 +1,13 @@
 package com.project.petcaremanager.dtos.addressDtos.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 public record UpdateAddressDto(
         @NotBlank(message = "O campo rua é obrigatório")
         String street,
-        @NotBlank(message = "O campo número é obrigatório")
+        @NotNull @PositiveOrZero
         int number,
         String supplement,
         @NotBlank(message = "O campo bairro é obrigatório")

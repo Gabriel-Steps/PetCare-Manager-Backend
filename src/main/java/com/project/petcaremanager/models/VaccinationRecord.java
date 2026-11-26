@@ -31,8 +31,10 @@ public class VaccinationRecord {
     @Column(nullable = false)
     private String manufacturer;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private LocalDate boosterVaccine;
+
+    public VaccinationRecord(){ }
 
     public VaccinationRecord(
             Long id,
@@ -107,5 +109,13 @@ public class VaccinationRecord {
 
     public void setBoosterVaccine(LocalDate boosterVaccine) {
         this.boosterVaccine = boosterVaccine;
+    }
+
+    public Pet getPet() {
+        return pet;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
     }
 }

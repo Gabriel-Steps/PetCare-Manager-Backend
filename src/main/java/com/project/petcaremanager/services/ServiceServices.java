@@ -5,9 +5,11 @@ import com.project.petcaremanager.dtos.serviceDtos.request.UpdateServiceDto;
 import com.project.petcaremanager.dtos.serviceDtos.response.ResponseServiceDto;
 import com.project.petcaremanager.exceptions.ResourceNotFoundException;
 import com.project.petcaremanager.models.Services;
+import com.project.petcaremanager.models.Unit;
 import com.project.petcaremanager.models.enums.PetSize;
 import com.project.petcaremanager.models.enums.ServiceCategory;
 import com.project.petcaremanager.repositories.ServiceRepository;
+import com.project.petcaremanager.repositories.UnitRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,13 +18,22 @@ import org.springframework.stereotype.Service;
 public class ServiceServices {
 
     private final ServiceRepository serviceRepository;
+    private final UnitRepository unitRepository;
 
-    public ServiceServices(ServiceRepository serviceRepository) {
+    public ServiceServices(
+            ServiceRepository serviceRepository,
+            UnitRepository unitRepository
+    ) {
         this.serviceRepository = serviceRepository;
+        this.unitRepository = unitRepository;
     }
 
     public void create(CreateServiceDto dto){
 
+        Unit unit = unitRepository.findById(dto.unitId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Nenhuma unidade encontrada com esse identificador " + dto.unitId()
+                ));
         ServiceCategory serviceCategory;
 
         try {
@@ -38,7 +49,8 @@ public class ServiceServices {
                 dto.description(),
                 dto.duration(),
                 dto.basePrice(),
-                dto.requiresVeterinarian()
+                dto.requiresVeterinarian(),
+                unit
         );
 
         serviceRepository.save(service);
@@ -47,7 +59,20 @@ public class ServiceServices {
     public Page<ResponseServiceDto> findAll(Pageable pageable){
         return serviceRepository.findAll(pageable)
                 .map(services -> new ResponseServiceDto(
-                        null,
+                        services.getId(),
+                        services.getName(),
+                        services.getCategory(),
+                        services.getDescription(),
+                        services.getDuration(),
+                        services.getBasePrice(),
+                        services.isRequiresVeterinarian()
+                ));
+    }
+
+    public Page<ResponseServiceDto> findAllByUnitId(Long id, Pageable pageable){
+        return serviceRepository.findAllByUnitId(id, pageable)
+                .map(services -> new ResponseServiceDto(
+                        services.getId(),
                         services.getName(),
                         services.getCategory(),
                         services.getDescription(),

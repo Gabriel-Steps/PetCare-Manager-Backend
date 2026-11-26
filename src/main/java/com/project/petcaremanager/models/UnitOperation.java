@@ -3,7 +3,7 @@ package com.project.petcaremanager.models;
 import com.project.petcaremanager.models.enums.DayOfWeek;
 import jakarta.persistence.*;
 
-import java.util.TimeZone;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "unit_operations")
@@ -22,17 +22,17 @@ public class UnitOperation {
     private DayOfWeek dayOfWeek;
 
     @Column(nullable = false)
-    private TimeZone startTime;
+    private LocalTime startTime;
 
     @Column(nullable = false)
-    private TimeZone endTime;
+    private LocalTime endTime;
 
     public UnitOperation(
             Long id,
             Unit unit,
             DayOfWeek dayOfWeek,
-            TimeZone startTime,
-            TimeZone endTime) {
+            LocalTime startTime,
+            LocalTime endTime) {
         this.id = id;
         this.unit = unit;
         this.dayOfWeek = dayOfWeek;
@@ -64,19 +64,19 @@ public class UnitOperation {
         this.dayOfWeek = dayOfWeek;
     }
 
-    public TimeZone getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(TimeZone startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public TimeZone getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(TimeZone endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 }

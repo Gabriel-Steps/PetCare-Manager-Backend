@@ -1,6 +1,8 @@
 package com.project.petcaremanager.dtos.clientDtos.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 public record CreateClientDto(
         @NotBlank(message = "O campo nome é obrigatório")
@@ -11,9 +13,9 @@ public record CreateClientDto(
         String phone,
         String secondaryPhone,
         String email,
-        @NotBlank(message = "É obrigatório o usuário ter endereço")
+        @NotNull @Positive
         Long addressId,
-        @NotBlank(message = "É obrigatório saber se o usuário aceita contato via Whats")
+        @NotNull
         boolean contactViaWhatsApp,
         String observation
 ) {
